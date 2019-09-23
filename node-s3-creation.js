@@ -6,8 +6,15 @@ var bucketName = 'pepe-sample-' + uuid.v4();
 // Create name for uploaded object key
 var keyName = 'hello_world.txt';
 
+var bucketParams = {
+  Bucket: bucketName, 
+  CreateBucketConfiguration: {
+   LocationConstraint: "eu-west-1"
+  }
+ };
+
 // Create a promise on S3 service object
-var bucketPromise = new AWS.S3({apiVersion: '2006-03-01'}).createBucket({Bucket: bucketName}).promise();
+var bucketPromise = new AWS.S3({apiVersion: '2006-03-01'}).createBucket(bucketParams).promise();
 
 // Handle promise fulfilled/rejected states
 bucketPromise.then(
@@ -24,3 +31,5 @@ bucketPromise.then(
   function(err) {
     console.error(err, err.stack);
 });
+
+
